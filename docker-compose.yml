@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+    db:
+        image: mysql:8.0.23
+        platform: linux/x86_64
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+            - "./docker_data/mysql:/var/lib/mysql"
+#        environment:
+#            MYSQL_ROOT_PASSWORD: m1nd4
+#            MYSQL_DATABASE: app_db
+#            MYSQL_USER: app_user
+#            MYSQL_PASSWORD: app_pass
+        ports:
+            - 6603:3306
+        networks:
+            - symfony
+        env_file:
+            - ./infrastructure/.env
+    php:
+        build:
+            context: ./infrastructure/docker/php
+            args:
+                TIMEZONE: 'Europe/Madrid'
+        volumes:
+            - ./symfony:/var/www/symfony/
+        ports:
+            - 9000:9000
+        networks:
+            - symfony
+    nginx:
+        build:
+            context: ./infrastructure/docker/nginx
+        volumes:
+            - ./symfony:/var/www/symfony/
+        ports:
+            - 9980:80
+        networks:
+            - symfony
+    frontend:
+        container_name: frontend
+        image: node:lts
+        working_dir: /var/www/html/app/
+        entrypoint: /bin/bash
+        ports:
+            - 8080:8080
+        volumes:
+            - ./frontend/:/var/www/html/app
+        tty: true
+
+networks:
+    symfony:
