@@ -31,17 +31,14 @@ class MatchDocumentRepository extends ServiceEntityRepository
 //        }
 //    }
 //
-//    public function findByIdProject(int $value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->where('t.isDeleted = 0')
-//            ->andWhere('t.idProject = :val')
-//            ->setParameter('val', $value)
-//            //    ->orderBy('t.id', 'ASC')
-//            //    ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult();
-//    }
+    public function findAllRunning(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.status = :val')
+            ->setParameter('val', "runing")
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findByUuid(string $value): ?MatchDocument
     {

@@ -22,6 +22,9 @@ class MatchDocument
     #[ORM\Column(type: 'string', length: 255)]
     private $color;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class MatchDocument
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getstatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setstatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

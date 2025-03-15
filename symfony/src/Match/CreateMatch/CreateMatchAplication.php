@@ -7,6 +7,9 @@ use App\Entity\MatchDocument;
 
 final class CreateMatchAplication
 {
+    private const STATUS_RUN="runing";
+    private const STATUS_END="ended";
+
     public function __construct(private $repository)
     {
 
@@ -27,6 +30,7 @@ final class CreateMatchAplication
         $match->setUuid($param['id']);
         $match->setName($param['name']); // ToDo puede ser opcional
         $match->setColor($this->generarCodigoColoresConRepeticion());
+        $match->setstatus(self::STATUS_RUN);
 
         // Mando accion (add) al repository
         $this->repository->add($match, true);
