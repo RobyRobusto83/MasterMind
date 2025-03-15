@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use App\Repository\MatchDocumentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MatchDocumentRepository::class)]
@@ -19,11 +21,23 @@ class MatchDocument
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
+
     #[ORM\Column(type: 'string', length: 255)]
     private $color;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $status;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $moves;
+
+     public function __construct()
+        {
+            $this->moves = new ArrayCollection();
+            $this->createdAt = new \DateTime();
+        }
 
     public function getId(): ?int
     {
@@ -50,25 +64,6 @@ class MatchDocument
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getTimeTotal(): ?int
-    {
-        return $this->timeTotal;
-    }
-
-    public function setTimeTotal(?int $timeTotal): self
-    {
-        $this->timeTotal = $timeTotal;
-
-        return $this;
-    }
-
-    public function assignTime(int $timeSec): self
-    {
-        $this->timeTotal += $timeSec;
 
         return $this;
     }
@@ -107,6 +102,11 @@ class MatchDocument
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getMoves(): Collection
+    {
+        return $this->moves;
     }
 
 }

@@ -38,7 +38,7 @@ final class CreateMatchAplication
 
     private function generarCodigoColoresConRepeticion(): string
     {
-        $colores = ["Turquesa", "Mostaza", "Coral", "Lavanda", "Esmeralda", "Granate"];
+        $colores = ["Rojo", "Azul", "Amarillo", "Verde", "Marron", "Morado"];
         $codigo = [];
 
         // Generar un código de 4 colores con posibles repeticiones

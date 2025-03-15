@@ -2,9 +2,6 @@
 
 namespace App\Controller\Match;
 
-//use App\Entity\Document;
-//use App\Pfc\application\GetPFC\ApiGetPFCContent;
-//use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\MatchDocument;
 use App\Match\ListMatches\ListAllMatchesAplication;
 use Doctrine\Persistence\ManagerRegistry;
