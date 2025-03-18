@@ -19,7 +19,7 @@ class CreateMovesAplication
 
     public function execute(array $param): void
     {
-        // Busco la tarea por uuid
+        // Busco la paritda por uuid
         /* @var \App\Entity\MatchDocument $match */
         $match = $this->match_repo->findByUuid($param["match_id"]);
 

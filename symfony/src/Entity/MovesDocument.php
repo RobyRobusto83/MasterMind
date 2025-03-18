@@ -109,4 +109,5 @@ class MovesDocument
         $this->malColocadas = $malColocadas;
         return $this;
     }
+
 }

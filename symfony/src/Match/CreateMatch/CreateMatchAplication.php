@@ -17,26 +17,27 @@ final class CreateMatchAplication
 
     public function execute(array $param): void
     {
-        // Busco la tarea por uuid
+
         $match = $this->repository->findByUuid($param['id']);
 
-        // Si no esta error
+
         if ($match) {
-            throw new \Exception('Task found for id ' . $param['id']);
+            throw new \Exception('Match found for id ' . $param['id']);
         }
 
-        // Preparo entidad para mandar a repository
         $match = new MatchDocument();
         $match->setUuid($param['id']);
+
         if (!empty($param['name'])) {
             $match->setName($param['name']);
         } else {
             $match->setName(null); // nombre opcional, no se necesita valor
         }
+
         $match->setColor($this->generarCodigoColoresConRepeticion());
         $match->setstatus(self::STATUS_RUN);
+        $match->setstatus(self::STATUS_END);
 
-        // Mando accion (add) al repository
         $this->repository->add($match, true);
     }
 
