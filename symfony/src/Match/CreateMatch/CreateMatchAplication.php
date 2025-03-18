@@ -28,7 +28,11 @@ final class CreateMatchAplication
         // Preparo entidad para mandar a repository
         $match = new MatchDocument();
         $match->setUuid($param['id']);
-        $match->setName($param['name']); // ToDo puede ser opcional
+        if (!empty($param['name'])) {
+            $match->setName($param['name']);
+        } else {
+            $match->setName(null); // nombre opcional, no se necesita valor
+        }
         $match->setColor($this->generarCodigoColoresConRepeticion());
         $match->setstatus(self::STATUS_RUN);
 

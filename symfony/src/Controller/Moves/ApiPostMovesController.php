@@ -25,7 +25,10 @@ class ApiPostMovesController extends AbstractController
             // Recupero datos desde request
             $param = json_decode($request->getContent(), true);
 
-            $useCase = new CreateMovesAplication($doctrine->getRepository(MovesDocument::class));
+            $useCase = new CreateMovesAplication(
+                $doctrine->getRepository(MatchDocument::class),
+                $doctrine->getRepository(MovesDocument::class)
+            );
             $useCase->execute($param);
 
             // Informo Ok al cliente

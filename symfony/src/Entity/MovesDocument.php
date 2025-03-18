@@ -13,16 +13,13 @@ class MovesDocument
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'guid')]
+    private $uuid;
+
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $color;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $score;
-
-    #[ORM\Column(type: 'integer', length:50)]
+   #[ORM\Column(type: 'integer', length:50)]
     private $codigoPropuesto;
 
     #[ORM\Column(type: 'integer')]
@@ -45,6 +42,18 @@ class MovesDocument
         return $this->id;
     }
 
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -53,30 +62,6 @@ class MovesDocument
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(string $color): self
-    {
-        $this->color = $color;
-
-        return $this;
-    }
-
-    public function getScore(): ?string
-    {
-        return $this->score;
-    }
-
-    public function setScore(string $score): self
-    {
-        $this->score = $score;
 
         return $this;
     }
