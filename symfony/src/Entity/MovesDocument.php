@@ -19,14 +19,11 @@ class MovesDocument
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
-   #[ORM\Column(type: 'integer', length:50)]
+   #[ORM\Column(type: 'string')]
     private $codigoPropuesto;
 
-    #[ORM\Column(type: 'integer')]
-    private $bienColocadas;
-
-    #[ORM\Column(type: 'integer')]
-    private $malColocadas;
+    #[ORM\Column(type: 'string')]
+    private $attemptedAnswers;
 
     #[ORM\ManyToOne(targetEntity: MatchDocument::class, inversedBy:"moves")]
     #[ORM\JoinColumn(nullable:false, onDelete:"CASCADE")]
@@ -88,26 +85,15 @@ class MovesDocument
         return $this;
     }
 
-    public function getBienColocadas(): ?int
+    public function setAttemptedAnswers(string $attemptedAnswers): self
     {
-        return $this->bienColocadas;
-    }
-
-    public function setBienColocadas(int $bienColocadas): self
-    {
-        $this->bienColocadas = $bienColocadas;
+        $this->attemptedAnswers = $attemptedAnswers;
         return $this;
     }
 
-    public function getMalColocadas(): ?int
+    public function getAttemptedAnswers(): ?int
     {
-        return $this->malColocadas;
-    }
-
-    public function setMalColocadas(int $malColocadas): self
-    {
-        $this->malColocadas = $malColocadas;
-        return $this;
+        return $this->attemptedAnswers;
     }
 
 }

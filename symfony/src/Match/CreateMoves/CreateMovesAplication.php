@@ -30,11 +30,12 @@ class CreateMovesAplication
 
         // Preparo entidad para mandar a repository
         $moves = new MovesDocument();
+        $target = $param["target"];
+        $target_Answer = $param["target_Answer"];
         $moves->setUuid($param['id']);
         $moves->setMatch($match);
-        $moves->setCodigoPropuesto($param["codigo_propuesto"]);
-        $moves->setBienColocadas($param["bien_colocado"]);
-        $moves->setMalColocadas($param["mal_colocado"]);
+        $moves->setCodigoPropuesto($target);
+        $moves->setAttemptedAnswers($target_Answer);
 
         // Mando accion (add) al repository
         $this->repository->add($moves, true);

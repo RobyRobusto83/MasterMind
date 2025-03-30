@@ -18,7 +18,7 @@ use Throwable;
 
 class ApiPostMovesController extends AbstractController
 {
-    #[Route('/api/moves/', name: 'create_move', methods: ['POST'])]
+    #[Route('/api/moves', name: 'create_move', methods: ['POST'])]
     public function defaultAction(ManagerRegistry $doctrine, Request $request): Response
     {
         try {
