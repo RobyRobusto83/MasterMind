@@ -3,31 +3,34 @@
 namespace App\Controller\Match;
 
 use App\Entity\MatchDocument;
-use App\Entity\MovesDocument;
-use App\Match\ListMatches\ListAllMatchesAplication;
+use App\Match\UpdateMatch\UpdateMatchAplication;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
 
-class ApiGetMatchesController extends AbstractController
+class ApiPostMatchController extends AbstractController
 {
-    #[Route('/api/matchs', name: 'matchs_list', methods: ['GET'])]
+    #[Route('/api/match', name: 'update_match', methods: ['POST'])]
     public function defaultAction(ManagerRegistry $doctrine, Request $request): Response
     {
         try {
-            $useCase = new ListAllMatchesAplication(
-                $doctrine->getRepository(MatchDocument::class),
-                $doctrine->getRepository(MovesDocument::class)
+            // Recupero datos desde request
+            $param = json_decode($request->getContent(), true);
+
+            $useCase = new UpdateMatchAplication($doctrine->getRepository(MatchDocument::class));
+            $useCase->execute($param);
+
+            // Informo Ok al cliente
+            return new Response(
+                "OK",
+                Response::HTTP_OK,
+                ['Content-type' => 'application/' . $request->getContentType()]
             );
 
-            return new JsonResponse(
-                ['matches' => $useCase->execute()],
-                Response::HTTP_OK
-            );
         } catch (Throwable $e) {
             return new JsonResponse(
                 [

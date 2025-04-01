@@ -30,4 +30,14 @@ class MovesDocumentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findMovesFromMatch(string $match_id): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.matchId = :val')
+            ->setParameter('val', $match_id)
+            ->orderBy('t.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

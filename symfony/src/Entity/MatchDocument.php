@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use App\Repository\MatchDocumentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MatchDocumentRepository::class)]
@@ -25,18 +23,19 @@ class MatchDocument
     private $createdAt;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $color;
+    private $targetColors;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $status;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $moves;
+    #[ORM\Column(type: 'boolean')]
+    private $successful;
+
 
      public function __construct()
         {
-            $this->moves = new ArrayCollection();
             $this->createdAt = new \DateTime();
+            $this->successful = false;
         }
 
     public function getId(): ?int
@@ -80,17 +79,22 @@ class MatchDocument
         return $this;
     }
 
-    public function getColor(): ?string
+    /**
+     * @return mixed
+     */
+    public function getTargetColors()
     {
-        return $this->color;
+        return $this->targetColors;
     }
 
-    public function setColor(string $color): self
+    /**
+     * @param mixed $targetColors
+     */
+    public function setTargetColors($targetColors): void
     {
-        $this->color = $color;
-
-        return $this;
+        $this->targetColors = $targetColors;
     }
+
 
     public function getstatus(): ?string
     {
@@ -104,9 +108,22 @@ class MatchDocument
         return $this;
     }
 
-    public function getMoves(): Collection
+    /**
+     * @return mixed
+     */
+    public function getSuccessful(): bool
     {
-        return $this->moves;
+        return $this->successful;
     }
+
+    /**
+     * @param mixed $successful
+     */
+    public function setSuccessful(bool $successful): void
+    {
+        $this->successful = $successful;
+    }
+
+
 
 }

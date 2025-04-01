@@ -32,8 +32,7 @@ class CreateMovesAplication
         $moves = new MovesDocument();
         $target = $param["target"];
         $target_Answer = $param["target_Answer"];
-        $moves->setUuid($param['id']);
-        $moves->setMatch($match);
+        $moves->setMatchId($match->getUuid());
         $moves->setCodigoPropuesto($target);
         $moves->setAttemptedAnswers($target_Answer);
 

@@ -14,10 +14,7 @@ class MovesDocument
     private $id;
 
     #[ORM\Column(type: 'guid')]
-    private $uuid;
-
-    #[ORM\Column(type: 'datetime')]
-    private $createdAt;
+    private $matchId;
 
    #[ORM\Column(type: 'string')]
     private $codigoPropuesto;
@@ -25,9 +22,9 @@ class MovesDocument
     #[ORM\Column(type: 'string')]
     private $attemptedAnswers;
 
-    #[ORM\ManyToOne(targetEntity: MatchDocument::class, inversedBy:"moves")]
-    #[ORM\JoinColumn(nullable:false, onDelete:"CASCADE")]
-    private $match;
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
+
 
      public function __construct()
         {
@@ -39,38 +36,31 @@ class MovesDocument
         return $this->id;
     }
 
-    public function getUuid(): ?string
-    {
-        return $this->uuid;
-    }
-
-    public function setUuid(string $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMatchId()
+    {
+        return $this->matchId;
+    }
+
+    /**
+     * @param mixed $matchId
+     */
+    public function setMatchId($matchId): void
+    {
+        $this->matchId = $matchId;
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
-        return $this;
-    }
-
-    public function getMatch(): ?MatchDocument
-    {
-        return $this->match;
-    }
-
-    public function setMatch(?MatchDocument $match): self
-    {
-        $this->match = $match;
         return $this;
     }
 
@@ -91,7 +81,7 @@ class MovesDocument
         return $this;
     }
 
-    public function getAttemptedAnswers(): ?int
+    public function getAttemptedAnswers(): ?string
     {
         return $this->attemptedAnswers;
     }

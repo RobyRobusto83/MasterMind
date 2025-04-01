@@ -27,6 +27,7 @@ class MatchDocumentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->where('t.status = :val')
             ->setParameter('val', "runing")
+            ->orderBy('t.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }
